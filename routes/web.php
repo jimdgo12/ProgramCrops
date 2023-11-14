@@ -13,6 +13,9 @@ use App\Http\Controllers\informationSeedController;
 use App\Http\Controllers\informationDiseaseController;
 use App\Http\Controllers\auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticationSessionController;
+use App\Http\Controllers\FertilizersController;
+use App\Http\Controllers\PesticidesController;
+use App\Http\Controllers\SeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +41,10 @@ Route::get('/pesticides/{crop}/{disease}', [IndexController::class, 'getPesticid
 //================== RUTAS ADMIN ==========================
 Route::get('/welcome', [AdminController::class, 'welcome'])->name('WelcomeAdmin');
 Route::resource('/crops', CropsController::class);
+Route::resource('/seeds', SeedController::class);
+Route::resource('/fertilizers', FertilizersController::class);
+Route::resource('/diseases', DiseaseController::class);
+Route::resource('/pesticides', PesticidesController::class);
 
 //================= RUTAS DE SESIÓN =======================
 Route::get('/login', [AuthenticationSessionController::class, 'create'])->name('login');

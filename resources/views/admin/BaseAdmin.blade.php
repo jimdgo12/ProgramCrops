@@ -110,6 +110,38 @@
                                 <p>Cultivos</p>
                             </a>
                         </li>
+
+                        <li class="nav-item menu-open">
+                            <a href="{{ route('seeds.index') }}" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Semillas</p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item menu-open">
+                            <a href="{{ route('fertilizers.index') }}" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Fertilizantes</p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item menu-open">
+                            <a href="{{ route('diseases.index') }}" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Enfermedades</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item menu-open">
+                            <a href="{{ route('pesticides.index') }}" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Plaguicidas</p>
+                            </a>
+                        </li>
+
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

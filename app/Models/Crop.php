@@ -25,7 +25,7 @@ class Crop extends Model
     }
 
     // Relación varios a varios (Crops => Fertilizer)
-    public function fertilizer(): BelongsToMany
+    public function fertilizers(): BelongsToMany
     {
         return $this->belongsToMany(Fertilizer::class, 'crop_fertilizers', 'crop_id', 'fertilizer_id');
     }

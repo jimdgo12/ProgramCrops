@@ -23,6 +23,6 @@ class informationDiseaseController extends Controller
         //     'crops' => $crops
         // ]);
 
-        return view('admin..informationDesease', ['crop' => $id, 'diseases' => $diseases]);
+        return view('admin.informationDesease', ['crop' => $id, 'diseases' => $diseases]);
     }
 }
