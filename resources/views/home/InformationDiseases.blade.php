@@ -6,7 +6,7 @@
         <a href="{{ route('informationCrop', $crop) }}" class="nav-item nav-link">Información</a>
         <a href="{{ route('informationSeeds', $crop) }}" class="nav-item nav-link">Semillas</a>
         <a href="{{ route('informationDiseases', $crop) }}" class="nav-item nav-link">Enfermedades</a>
-        <a href="{{ route('informationFertilizers', $crop) }}" class="nav-item nav-link">Abonos</a>
+        <a href="{{ route('informationFertilizers', $crop) }}" class="nav-item nav-link">Fertilizantes</a>
     </div>
 @endsection
 
@@ -46,7 +46,7 @@
                                                         alt="{{ $disease->name }}" width="300" height="300">
                                                     <br>
                                                     <br>
-                                                    <a href="{{ route('informationPesticides', ['crop' => $crop, 'disease' => $disease]) }}"
+                                                    <a href="{{ route('viewInformationPesticides', ['crop' => $crop, 'disease' => $disease]) }}"
                                                         class="btn btn-success">
                                                         Consulta los plagicidas
                                                     </a>

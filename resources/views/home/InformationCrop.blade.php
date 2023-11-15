@@ -6,7 +6,7 @@
         <a href="{{ route('informationCrop', $crop) }}" class="nav-item nav-link">Información</a>
         <a href="{{ route('informationSeeds', $crop) }}" class="nav-item nav-link">Semillas</a>
         <a href="{{ route('informationDiseases', $crop) }}" class="nav-item nav-link">Enfermedades</a>
-        <a href="{{ route('informationFertilizers', $crop) }}" class="nav-item nav-link">Abonos</a>
+        <a href="{{ route('informationFertilizers', $crop) }}" class="nav-item nav-link">Fertilizantes</a>
     </div>
 @endsection
 
@@ -25,7 +25,7 @@
         <div class="container-fluid how-to-use bg-primary my-5 py-5">
             <div class="container text-white py-5">
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Nombre</h1>
+                    <h1 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Nombre</h1>
                     <p class="text-white mb-4 animated slideInRight">{{ $crop->name }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">

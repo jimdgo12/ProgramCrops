@@ -42,9 +42,10 @@ class IndexController extends Controller
 
     public function getPesticidesInformation(Crop $crop, Disease $disease)
     {
-        dd($crop, $disease);
+
         $diseases = $crop->diseases;
         $pesticides = $disease->pesticides;
+        // dd($crop, $disease, $pesticides);
 
         return view('home.InformationPesticides', ['crop' => $crop, 'diseases' => $diseases, 'disease' => $disease, 'pesticides' => $pesticides]);
     }
@@ -64,5 +65,14 @@ class IndexController extends Controller
     public function viewGetCrops(Crop $crop)
     {
         return view('admin.crop.AdminCropView', ['crop' => $crop]);
+    }
+
+    public function viewPesticidesInformation(Crop $crop, Disease $disease)
+    {
+        $diseases = $crop->diseases;
+        $pesticides = $disease->pesticides;
+        return view('home.ViewInformationPesticides', ['crop' => $crop, 'diseases' => $diseases, 'disease' => $disease, 'pesticides' => $pesticides]);
+        // $pesticides = $disease->pesticides;
+        // return view('home.ViewInformationPesticides', ['disease' => $disease, 'pesticides' => $pesticides]);
     }
 }

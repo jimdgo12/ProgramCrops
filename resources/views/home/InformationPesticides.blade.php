@@ -6,7 +6,7 @@
         <a href="{{ route('informationCrop', $crop) }}" class="nav-item nav-link">Información</a>
         <a href="{{ route('informationSeeds', $crop) }}" class="nav-item nav-link">Semillas</a>
         <a href="{{ route('informationDiseases', $crop) }}" class="nav-item nav-link">Enfermedades</a>
-        <a href="{{ route('informationFertilizers', $crop) }}" class="nav-item nav-link">Abonos</a>
+        <a href="{{ route('informationFertilizers', $crop) }}" class="nav-item nav-link">Fertilizantes</a>
     </div>
 @endsection
 
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Plagicidas</h1>
+                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Plaguicidas</h1>
                     <p class="text-white mb-4 animated slideInRight">{{ $disease->nameCommon }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
@@ -100,15 +100,15 @@
                                                 <td>
                                                     <strong>Nombre: </strong><br>
                                                     {{ $pesticide->name }}<br>
-                                                    {{-- <strong>Nombre científico: </strong><br>
-                                                    {{ $pesticide->nameScientific }}<br>
+                                                    <strong>Descrición: </strong><br>
+                                                    {{ $pesticide->description }}<br>
                                                     <strong>Descripción: </strong><br>
                                                     {{ $pesticide->description }}<br>
-                                                    <strong>Diágnostico: </strong><br>
-                                                    {{ $pesticide->diagnosis }}<br>
-                                                    <strong>Sintomas: </strong><br>
-                                                    {{ $pesticide->symptoms }}<br>
-                                                    <strong>Transmisión: </strong><br>
+                                                    <strong>Ingrediente Activo: </strong><br>
+                                                    {{ $pesticide->activeIngredient }}<br>
+                                                    <strong>Precio: </strong><br>
+                                                    {{ $pesticide->price }}<br>
+                                                    {{-- <strong>Transmisión: </strong><br>
                                                     {{ $pesticide->transmission }}<br>
                                                     <strong>Tipo: </strong><br>
                                                     {{ $pesticide->type }} --}}

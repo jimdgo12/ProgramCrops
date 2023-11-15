@@ -35,8 +35,8 @@ Route::get('/crop/{crop}', [IndexController::class, 'getCropInformation'])->name
 Route::get('/seeds/{crop}', [IndexController::class, 'getSeedsInformation'])->name('informationSeeds');
 Route::get('/diseases/{crop}', [IndexController::class, 'getDiseasesInformation'])->name('informationDiseases');
 Route::get('/fertilizers/{crop}', [IndexController::class, 'getFertilizersInformation'])->name('informationFertilizers');
-
 Route::get('/pesticides/{crop}/{disease}', [IndexController::class, 'getPesticidesInformation'])->name('informationPesticides');
+Route::get('/ViewPesticides{crop}/{disease}', [IndexController::class, 'viewPesticidesInformation'])->name('viewInformationPesticides');
 
 //================== RUTAS ADMIN ==========================
 Route::get('/welcome', [AdminController::class, 'welcome'])->name('WelcomeAdmin');

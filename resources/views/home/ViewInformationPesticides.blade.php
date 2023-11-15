@@ -11,11 +11,11 @@
 @endsection
 
 @section('title')
-    {{ $crop->name }}
+    {{ $disease->nameCommon }}
 @endsection
 
 @section('image')
-    <img class="img-fluid animated pulse infinite" src="{{ $crop->image }}" alt="">
+    <img class="img-fluid animated pulse infinite" src="{{ $disease->image }}" alt="">
 @endsection
 
 
@@ -25,8 +25,8 @@
         <div class="container-fluid how-to-use bg-primary my-5 py-5">
             <div class="container text-white py-5">
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Semillas</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $crop->name }}</p>
+                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Enfermedades</h1>
+                    <p class="text-white mb-4 animated slideInRight">{{ $disease->nameCommon }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
                     <div class="card">
@@ -39,29 +39,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($seeds)
-                                        @foreach ($seeds as $seed)
+                                    @isset($pesticides)
+                                        @foreach ($pesticides as $pesticide)
                                             <tr>
-                                                <td><img src="{{ asset($seed->image) }}" alt="{{ $seed->name }}"
-                                                        width="300" height="300">
+                                                <td class="text-center"><img src="{{ asset($pesticide->image) }}"
+                                                        alt="{{ $pesticide->name }}" width="300" height="300">
+                                                    <br>
+                                                    <br>
+                                                    {{-- <a href="{{ route('viewInformationPesticides', ['crop' => $crop, 'pesticide' => $pesticide]) }}"
+                                                        class="btn btn-success">
+                                                        Consulta los plagicidas
+                                                    </a> --}}
                                                 </td>
                                                 <td>
                                                     <strong>Nombre: </strong><br>
-                                                    {{ $seed->name }}<br>
-                                                    <strong>Nombre científico: </strong><br>
-                                                    {{ $seed->nameScientific }}<br>
-                                                    <strong>Origen: </strong><br>
-                                                    {{ $seed->origin }}<br>
-                                                    <strong>Morfología: </strong><br>
-                                                    {{ $seed->morphology }}<br>
+                                                    {{ $pesticide->name }}<br>
+                                                    <strong>Descripción: </strong><br>
+                                                    {{ $pesticide->description }}<br>
+                                                    <strong>Ingrediente Activo: </strong><br>
+                                                    {{ $pesticide->activeIngredient }}<br>
+                                                    <strong>Precio: </strong><br>
+                                                    {{ $pesticide->price }}<br>
                                                     <strong>Tipo: </strong><br>
-                                                    {{ $seed->type }}<br>
-                                                    <strong>Calidad: </strong><br>
-                                                    {{ $seed->quality }}<br>
-                                                    <strong>Propagación: </strong><br>
-                                                    {{ $seed->spreading }}<br>
+                                                    {{ $pesticide->type }}<br>
+                                                    <strong>Dosis: </strong><br>
+                                                    {{ $pesticide->dose }}
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                     @endisset
