@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('seeds.create') }}" class="btn btn-warning">
+                        <a href="{{ route('seeds.create') }}" class="btn btn-success">
                             <i class="fas fa-plus-circle nav-icon"> </i>
                         </a>
                     </div>
@@ -31,7 +31,10 @@
                                 <th>Nombre Común</th>
                                 <th>Nombre científico</th>
                                 <th>Origen</th>
+                                <th>Morfología</th>
                                 <th>Tipo</th>
+                                <th>Calidad</th>
+                                <th>Extensión</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -47,14 +50,19 @@
                                         <td>{{ $seed->name }}</td>
                                         <td>{{ $seed->nameScientific }}</td>
                                         <td>{{ $seed->origin }}</td>
+                                        <td>{{ $seed->morphology }}</td>
                                         <td>{{ $seed->type }}</td>
+                                        <td>{{ $seed->quality }}</td>
+                                        <td>{{ $seed->spreading }}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-info">
+                                            <a href="{{ route('seeds.edit', $seed) }}" class="btn btn-info">
                                                 <i class="fas fa-edit nav-icon"></i>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <form action="">
+                                            <form action="{{ route('seeds.destroy', $seed) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fas fa-minus-circle nav-icon"> </i>
                                                 </button>
@@ -120,4 +128,23 @@
                     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
                 });
             </script>
+            @if (session('success'))
+                <script>
+                    Swal.fire(
+                        'Exito!',
+                        '{{ session('success') }}',
+                        'success'
+                    )
+                </script>
+            @endif
+
+            @if (session('error'))
+                <script>
+                    Swal.fire(
+                        'Error!',
+                        '{{ session('error') }}',
+                        'error'
+                    )
+                </script>
+            @endif
         @endsection

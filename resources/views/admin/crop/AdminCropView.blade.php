@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('crops.create') }}" class="btn btn-warning">
+                        <a href="{{ route('crops.create') }}" class="btn btn-success">
                             <i class="fas fa-plus-circle nav-icon"> </i>
                         </a>
                     </div>
@@ -43,10 +43,10 @@
                             @isset($crops)
                                 @foreach ($crops as $crop)
                                     <tr>
-                                        {{-- <td><img src="{{ asset('storage/crop/' . $crop->image) }}" alt="{{ $crop->name }}"
-                                                width="60" height="80"></td> --}}
-                                        <td><img src="{{ $crop->image }}" alt="{{ $crop->name }}" width="60"
-                                                height="80"></td>
+                                        <td><img src="{{ asset('storage/crop/' . $crop->image) }}" alt="{{ $crop->name }}"
+                                                width="60" height="80"></td>
+                                        {{-- <td><img src="{{ $crop->image }}" alt="{{ $crop->name }}" width="60" --}}
+
                                         <td>{{ $crop->name }}</td>
                                         <td>{{ $crop->description }}</td>
                                         <td>{{ $crop->nameScientific }}</td>
@@ -55,12 +55,15 @@
                                         <td>{{ $crop->phaseHarvest }}</td>
                                         <td>{{ $crop->spreading }}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-info">
+                                            <a href="{{ route('crops.edit', $crop) }}" class="btn btn-info">
                                                 <i class="fas fa-edit nav-icon"></i>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <form action="">
+                                            <form action="{{ route('crops.destroy', $crop) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fas fa-minus-circle nav-icon"> </i>
                                                 </button>
@@ -126,4 +129,23 @@
                     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
                 });
             </script>
+            @if (session('success'))
+                <script>
+                    Swal.fire(
+                        'Exito!',
+                        '{{ session('success') }}',
+                        'success'
+                    )
+                </script>
+            @endif
+
+            @if (session('error'))
+                <script>
+                    Swal.fire(
+                        'Error!',
+                        '{{ session('error') }}',
+                        'error'
+                    )
+                </script>
+            @endif
         @endsection

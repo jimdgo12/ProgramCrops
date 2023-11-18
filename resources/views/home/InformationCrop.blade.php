@@ -25,31 +25,31 @@
         <div class="container-fluid how-to-use bg-primary my-5 py-5">
             <div class="container text-white py-5">
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Nombre</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $crop->name }}</p>
+                    <h3 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Nombre</h3>
+                    <p class="text-white mb-5 animated slideInRight">{{ $crop->name }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Nombre cientifíco</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $crop->nameScientific }}</p>
+                    <h3 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Nombre cientifíco</h3>
+                    <p class="text-white mb-5 animated slideInRight">{{ $crop->nameScientific }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Descripción</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $crop->description }}</p>
+                    <h3 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Descripción</h3>
+                    <p class="text-white mb-5 animated slideInRight">{{ $crop->description }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Historia</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $crop->history }}</p>
+                    <h3 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Historia</h3>
+                    <p class="text-white mb-5 animated slideInRight">{{ $crop->history }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Fases de fertilización</h1>
+                    <h3 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Fases de fertilización</h3>
                     <p class="text-white mb-4 animated slideInRight">{{ $crop->phaseFertilizer }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Fases de cosecha</h1>
+                    <h3 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Fases de cosecha</h3>
                     <p class="text-white mb-4 animated slideInRight">{{ $crop->phaseHarvest }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Extensión</h1>
+                    <h3 class="text-black mb-2"><span class="mx-auto text-center wow fadeIn">Extensión</h3>
                     <p class="text-white mb-4 animated slideInRight">{{ $crop->spreading }}</p>
                 </div>
             </div>

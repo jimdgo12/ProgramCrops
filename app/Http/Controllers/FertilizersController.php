@@ -2,16 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Crop;
 use App\Models\Fertilizer;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class FertilizersController extends Controller
 {
     public function index()
     {
+        $crops = Crop::get();
+        $crop_id = Crop::first()->id;
+
         $fertilizers = Fertilizer::get();
-        return view('admin.fertilizer.AdminFertilizerView', ['fertilizers' => $fertilizers]);
+        return view('admin.fertilizer.AdminFertilizerView', ['crops' => $crops, 'fertilizers' => $fertilizers]);
     }
+
+    public function getCropFertilizerById($id)
+    {
+        $crops = Crop::get();
+        $crop = Crop::find($id);
+        // dd($crop);
+        // $diseases = Disease::where('crop_id', '=', $crop->id)->get();
+        $fertilizers = $crop->diseases;
+        // dd($crop, $diseases);
+        return view('admin.fertilizer.AdminFertilizerView', ['crops' => $crops, 'fertilizers' => $fertilizers, 'crop_id' => $crop->id]);
+    }
+
+    public function create()
+    {
+        $crops = Crop::get();
+        return view('admin.fertilizer.AdminFertilizerView', ['crops' => $crops, 'fertilizer' => null]);
+    }
+
+
+    public function createFertilizer($id)
+    {
+        $crop_id = Fertilizer::first()->id;
+        $crops = Fertilizer::get();
+        $fertilizers = $crops->fertilizers;
+        //dd($crops, $crop_id);
+        return view('admin.fertilizer.AdminFertilizerView', ['crops' => $crops, 'fertilizers' => $fertilizers, $crops->$id, 'crop_id' => $crop_id]);
+    }
+
 
 
     /**
@@ -32,6 +65,8 @@ class FertilizersController extends Controller
 
         ]);
 
+        try {
+
         //Obtener el nombre de la imagen usando la función time()
         //Para generar un nombre aleatorio
         $imageNameFertilizer = time() . '.' . $request->image->extension();
@@ -48,6 +83,14 @@ class FertilizersController extends Controller
         ]);
 
         return redirect()->route('fertilizers.index');
+
+        $message = 'Se creo un fertilizante';
+
+            return redirect()->route('fertilizers.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'ups.. la semilla no fue creada';
+            return redirect()->route('fertilizers.index')->with('error', $message);
+        }
     }
 
     /**

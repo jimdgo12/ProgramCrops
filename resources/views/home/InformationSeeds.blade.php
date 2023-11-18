@@ -58,7 +58,7 @@
                                                     {{ $seed->type }}<br>
                                                     <strong>Calidad: </strong><br>
                                                     {{ $seed->quality }}<br>
-                                                    <strong>Propagación: </strong><br>
+                                                    <strong>Extensión: </strong><br>
                                                     {{ $seed->spreading }}<br>
                                                 </td>
 

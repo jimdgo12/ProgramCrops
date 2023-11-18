@@ -1,7 +1,7 @@
 @extends('admin.BaseAdmin')
 
 @section('title')
-    Registrar datos de una mascota
+    Registrar un Cultivo
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                             adjuntar archivos a la petición del formulario
                             adjuntar un archivo de imagen (.jpg, .png)
                         -->
-                    <form action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
-                        @include('admin.pet.FormPet')
+                    <form action="{{ route('crops.store') }}" method="POST" enctype="multipart/form-data">
+                        @include('admin.crop.FormCrop')
                         <br>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary" type="submit"> Registrar </button>
+                            <button class="btn btn-success" type="submit"> Registrar </button>
                         </div>
                     </form>
                 </div>

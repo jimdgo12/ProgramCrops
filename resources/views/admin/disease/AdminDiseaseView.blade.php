@@ -16,10 +16,33 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-end">
-                        <a href="{{ route('diseases.create') }}" class="btn btn-warning">
-                            <i class="fas fa-plus-circle nav-icon"> </i>
-                        </a>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                            <label for="">Cultivos: </label>
+                            <select class="form-control form-select" name="crop_id" id="crop_id">
+                                {{-- <option value="all" selected>Papa</option> --}}
+
+                                @isset($crops)
+                                    @foreach ($crops as $crop)
+                                        <option value="{{ $crop->id }}"
+                                            @isset($crop_id)
+                                            @selected($crop_id == $crop->id)
+                                        @endisset>
+                                            {{ $crop->name }}</option>
+                                    @endforeach
+                                @endisset
+                            </select>
+
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center">
+                            <a href="{{ route('createDisease', $crop_id) }}" class="btn btn-success">
+                                <i class="fas fa-plus-circle nav-icon"> </i>
+                            </a>
+                        </div>
+
+
+
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -122,7 +145,31 @@
                         },
                         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
                     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+                    var crop = document.getElementById('crop_id');
+                    crop.addEventListener('change', function() {
+                        var selectOption = this.options[crop.selectedIndex];
+                        window.location.href = "/admin/diseases/crop/" + selectOption.value;
+                    });
                 });
             </script>
-        @endsection
+             @if (session('success'))
+             <script>
+                 Swal.fire(
+                     'Exito!',
+                     '{{ session('success') }}',
+                     'success'
+                 )
+             </script>
+         @endif
 
+         @if (session('error'))
+             <script>
+                 Swal.fire(
+                     'Error!',
+                     '{{ session('error') }}',
+                     'error'
+                 )
+             </script>
+         @endif
+        @endsection

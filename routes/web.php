@@ -39,12 +39,23 @@ Route::get('/pesticides/{crop}/{disease}', [IndexController::class, 'getPesticid
 Route::get('/ViewPesticides{crop}/{disease}', [IndexController::class, 'viewPesticidesInformation'])->name('viewInformationPesticides');
 
 //================== RUTAS ADMIN ==========================
-Route::get('/welcome', [AdminController::class, 'welcome'])->name('WelcomeAdmin');
-Route::resource('/crops', CropsController::class);
-Route::resource('/seeds', SeedController::class);
-Route::resource('/fertilizers', FertilizersController::class);
-Route::resource('/diseases', DiseaseController::class);
-Route::resource('/pesticides', PesticidesController::class);
+Route::get('/admin/welcome', [AdminController::class, 'welcome'])->name('WelcomeAdmin');
+Route::resource('/admin/crops', CropsController::class);
+Route::resource('/admin/seeds', SeedController::class);
+Route::resource('/admin/fertilizers', FertilizersController::class);
+Route::resource('/admin/diseases', DiseaseController::class);
+Route::resource('/admin/pesticides', PesticidesController::class);
+
+
+
+Route::get('/admin/diseases/crop/{id}', [DiseaseController::class,'getCropDiseaseById']);
+Route::get('/admin/diseases/create/{id}', [DiseaseController::class,'createDisease'])->name('createDisease');
+Route::get('/admin/fertilizers/crop/{id}', [FertilizersController::class,'getCropFertilizerById']);
+Route::get('/admin/fertilizers/create/{id}', [FertilizersController::class,'createFertilizer'])->name('createFertilizer');
+Route::get('/admin/pesticides/disease/{id}', [FertilizersController::class,'getCropFertilizerById']);
+Route::get('/admin/pesticides/create/{id}', [FertilizersController::class,'createFertilizer'])->name('createFertilizer');
+
+
 
 //================= RUTAS DE SESIÓN =======================
 Route::get('/login', [AuthenticationSessionController::class, 'create'])->name('login');

@@ -5,48 +5,103 @@ namespace App\Http\Controllers;
 use App\Models\Crop;
 use App\Models\Disease;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class DiseaseController extends Controller
 {
     public function index()
     {
+
+        $crop_id = Crop::first()->id;
+        $crops = Crop::get();
+        //dd($crops, $crop_id);
         $diseases = Disease::get();
-        return view('admin.disease.AdminDiseaseView', ['diseases' => $diseases]);
+        return view('admin.disease.AdminDiseaseView', ['crops' => $crops, 'diseases' => $diseases, 'crop_id' => $crop_id]);
     }
+
+    public function getCropDiseaseById($id)
+    {
+        $crops = Crop::get();
+        $crop = Crop::find($id);
+        // dd($crop);
+        // $diseases = Disease::where('crop_id', '=', $crop->id)->get();
+        $diseases = $crop->diseases;
+        //dd($crop, $diseases);
+        return view('admin.disease.AdminDiseaseView', ['crops' => $crops, 'diseases' => $diseases, 'crop_id' => $crop->id]);
+    }
+
+    public function create()
+    {
+        $crops = Crop::get();
+        return view('admin.disease.CreateDisease', ['crops' => $crops, 'disease' => null]);
+    }
+
+
+    public function createDisease($id)
+
+    {
+
+        $crops = Crop::get();
+        $crop = Crop::find($id);
+
+        // $crop_id = Crop::first()->id;
+        // $crop = Crop::get();
+        $diseases = $crop->diseases;
+
+        return view('admin.disease.CreateDisease', ['crop' => $crop, 'diseases' => null]);
+    }
+
 
     public function store(Request $request)
     {
+        
 
         $request->validate([
-            'nameCommon' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,50',
-            'nameScientific' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,150',
-            'description' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
-            'diagnosis' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
-            'symptoms' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
-            'transmission' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
-            'type' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,100',
-            'image' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,800',
 
+            'nameCommon' => 'required',
+            'nameScientific' => 'required',
+            'description' => 'required',
+            'diagnosis' => 'required',
+            'symptoms' => 'required',
+            'transmission' => 'required',
+            'type' => 'required',
+            'image' => 'required','image' => 'required|image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
-        //Obtener el nombre de la imagen usando la función time()
-        //Para generar un nombre aleatorio
-        $imageNameDisease = time() . '.' . $request->image->extension();
-        //Copiar la imagen al directorio public
-        $request->image->move(public_path('storage/crop/'), $imageNameDisease);
+        // try {
 
-        Disease::create([
-            'nameCommon' => $request->nameCommon,
-            'nameScientific' => $request->nameScientific,
-            'description' => $request->description,
-            'diagnosis' => $request->diagnosis,
-            'symptoms' => $request->symptoms,
-            'transmission' => $request->transmission,
-            'type' => $request->type,
-            'image' => $request->imageNameDisease
-        ]);
+            //Obtener el nombre de la imagen usando la función time()
+            //Para generar un nombre aleatorio
+            $imageNameDisease = time() . '.' . $request->image->extension();
+            //Copiar la imagen al directorio public
+            $request->image->move(public_path('storage/disease/'), $imageNameDisease);
 
-        return redirect()->route('diseases.index');
+            Disease::create([
+                'nameCommon' => $request->nameCommon,
+                'nameScientific' => $request->nameScientific,
+                'description' => $request->description,
+                'diagnosis' => $request->diagnosis,
+                'symptoms' => $request->symptoms,
+                'transmission' => $request->transmission,
+                'type' => $request->type,
+                'image' => $imageNameDisease,
+                'crop_id' => $request->crop_id
+
+
+
+
+            ]);
+
+            return redirect()->route('diseases.index');
+
+
+        //     $message = 'Se creo la disease';
+
+        //     return redirect()->route('diseases.index')->with('success', $message);
+        // } catch (QueryException $e) {
+        //     $message = 'ups.. la enfermedad no fue creada';
+        //     return redirect()->route('diseases.index')->with('error', $message);
+        // }
     }
 
     /**

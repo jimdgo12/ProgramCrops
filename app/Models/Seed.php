@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Seed extends Model
 {
     use HasFactory;
+
     public function crop(): BelongsTo
     {
         return $this->belongsTo(Crop::class);
@@ -25,6 +26,7 @@ class Seed extends Model
         'quality',
         'spreading',
         'image',
+        'crop_id'
 
     ];
 }

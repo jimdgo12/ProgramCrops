@@ -11,11 +11,11 @@
 @endsection
 
 @section('title')
-    {{ $crop->name }}
+    {{ $disease->name }}
 @endsection
 
 @section('image')
-    <img class="img-fluid animated pulse infinite" src="{{ $crop->image }}" alt="">
+    <img class="img-fluid animated pulse infinite" src="{{ $disease->image }}" alt="">
 @endsection
 
 
@@ -25,8 +25,8 @@
         <div class="container-fluid how-to-use bg-primary my-5 py-5">
             <div class="container text-white py-5">
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Enfermedades</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $crop->name }}</p>
+                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Plaguicidas</h1>
+                    <p class="text-white mb-4 animated slideInRight">{{ $disease->name }}</p>
                 </div>
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
                     <div class="card">

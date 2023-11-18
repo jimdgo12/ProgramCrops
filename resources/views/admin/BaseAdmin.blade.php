@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/sweetAlert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/styles.css') }}">
     @yield('styles')
 </head>
@@ -91,10 +92,10 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-dark-success elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('index') }}" class="brand-link brand-logo">
-                <img src="{{ asset('admin/img/cultivo-logo.png') }}" alt="Pet Adoption" class="img-logo">
+                <img src="{{ asset('admin/img/cultivo-logo.png') }}" alt="Tutorial Crops" class="img-logo">
             </a>
 
             <!-- Sidebar -->
@@ -224,6 +225,7 @@
     <script src="{{ asset('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('admin/plugins/sweetAlert2/sweetalert2.all.min.js') }}"></script>
     @yield('scripts')
 </body>
 
