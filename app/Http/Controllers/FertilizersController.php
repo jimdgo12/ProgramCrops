@@ -56,6 +56,7 @@ class FertilizersController extends Controller
 
         $request->validate([
 
+            'crop_ids' => 'required_without_all',
             'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,50',
             'description' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
             'dose' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,150',
@@ -65,7 +66,28 @@ class FertilizersController extends Controller
 
         ]);
 
-        try {
+
+        $imageNameFertilizer = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('storage/disease/'), $imageNameFertilizer);
+
+        $fertilizer =  new Fertilizer(
+            [
+                'name' => $request->name,
+                'description' => $request->description,
+                'dose' => $request->dose,
+                'price' => $request->price,
+                'type' => $request->type,
+                'image' => $imageNameFertilizer
+            ]
+            );
+
+            foreach ($request->crop_ids as $crop_id) {
+                $crop = Crop::find($crop_id);
+                $crop->fertilizers()->save($fertilizer);
+            }
+
+
+         try {
 
         //Obtener el nombre de la imagen usando la función time()
         //Para generar un nombre aleatorio
@@ -82,13 +104,13 @@ class FertilizersController extends Controller
             'image' => $request->imageNameFertilizer
         ]);
 
-        return redirect()->route('fertilizers.index');
+        // return redirect()->route('fertilizers.index');
 
         $message = 'Se creo un fertilizante';
 
             return redirect()->route('fertilizers.index')->with('success', $message);
         } catch (QueryException $e) {
-            $message = 'ups.. la semilla no fue creada';
+            $message = 'ups.. el fertilizante no fue creada';
             return redirect()->route('fertilizers.index')->with('error', $message);
         }
     }
