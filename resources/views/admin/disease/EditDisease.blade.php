@@ -13,7 +13,7 @@
                                 adjuntar archivos a la petición del formulario
                                 adjuntar un archivo de imagen (.jpg, .png)
                             -->
-                    <form action="{{ route('diseases.update', $disease) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('diseases.update', $crop) }}" method="POST" enctype="multipart/form-data">
                         @method('put')
                         @include('admin.disease.FormDisease')
                         <br>

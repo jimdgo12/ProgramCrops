@@ -27,7 +27,7 @@ class CropsController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        
 
         $request->validate([
             'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,50',

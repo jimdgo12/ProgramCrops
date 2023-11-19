@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="d-flex flex-row align-items-center">
-                            <a href="{{ route('createDisease', $crop_id) }}" class="btn btn-success">
+                            <a href="{{ route('diseases.create', $crop_id) }}" class="btn btn-warning">
                                 <i class="fas fa-plus-circle nav-icon"> </i>
                             </a>
                         </div>
@@ -153,23 +153,23 @@
                     });
                 });
             </script>
-             @if (session('success'))
-             <script>
-                 Swal.fire(
-                     'Exito!',
-                     '{{ session('success') }}',
-                     'success'
-                 )
-             </script>
-         @endif
+            @if (session('success'))
+                <script>
+                    Swal.fire(
+                        'Exito!',
+                        '{{ session('success') }}',
+                        'success'
+                    )
+                </script>
+            @endif
 
-         @if (session('error'))
-             <script>
-                 Swal.fire(
-                     'Error!',
-                     '{{ session('error') }}',
-                     'error'
-                 )
-             </script>
-         @endif
+            @if (session('error'))
+                <script>
+                    Swal.fire(
+                        'Error!',
+                        '{{ session('error') }}',
+                        'error'
+                    )
+                </script>
+            @endif
         @endsection

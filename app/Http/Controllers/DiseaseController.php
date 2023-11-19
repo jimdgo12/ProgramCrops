@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Crop;
+use App\Models\CropDisease;
 use App\Models\Disease;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -38,7 +39,6 @@ class DiseaseController extends Controller
 
 
     public function createDisease($id)
-
     {
 
         $crops = Crop::get();
@@ -54,10 +54,9 @@ class DiseaseController extends Controller
 
     public function store(Request $request)
     {
-        
 
         $request->validate([
-
+            'crop_ids' => 'required_without_all',
             'nameCommon' => 'required',
             'nameScientific' => 'required',
             'description' => 'required',
@@ -65,18 +64,14 @@ class DiseaseController extends Controller
             'symptoms' => 'required',
             'transmission' => 'required',
             'type' => 'required',
-            'image' => 'required','image' => 'required|image|mimes:jpg,png,jpeg|max:2048'
+            'image' => 'required', 'image' => 'required|image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
-        // try {
+        $imageNameDisease = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('storage/disease/'), $imageNameDisease);
 
-            //Obtener el nombre de la imagen usando la función time()
-            //Para generar un nombre aleatorio
-            $imageNameDisease = time() . '.' . $request->image->extension();
-            //Copiar la imagen al directorio public
-            $request->image->move(public_path('storage/disease/'), $imageNameDisease);
-
-            Disease::create([
+        $disease =  new Disease(
+            [
                 'nameCommon' => $request->nameCommon,
                 'nameScientific' => $request->nameScientific,
                 'description' => $request->description,
@@ -84,15 +79,25 @@ class DiseaseController extends Controller
                 'symptoms' => $request->symptoms,
                 'transmission' => $request->transmission,
                 'type' => $request->type,
-                'image' => $imageNameDisease,
-                'crop_id' => $request->crop_id
+                'image' => $imageNameDisease
+            ]
+        );
+
+        foreach ($request->crop_ids as $crop_id) {
+            $crop = Crop::find($crop_id);
+            $crop->diseases()->save($disease);
+        }
 
 
 
 
-            ]);
+        // CropDisease::create([
+        //     'crop_id' => $request->crop_id,
+        //     'disease_id' => $request->disease_id,
 
-            return redirect()->route('diseases.index');
+        // ]);
+
+        return redirect()->route('diseases.index');
 
 
         //     $message = 'Se creo la disease';
@@ -135,15 +140,4 @@ class DiseaseController extends Controller
     {
         //
     }
-
-    //___________________________________________________________________________________________________________
-
-
-
-
-
-    //-------------------------------------------------------------------------------
-    //método de muchos a a muchos CropDisease
-
-
 }
