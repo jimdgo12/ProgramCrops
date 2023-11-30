@@ -19,11 +19,12 @@
 
         <div class="container-fluid how-to-use bg-primary my-5 py-5">
             <div class="container text-white py-5">
-                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+                <div class="mx-auto text-center wow fadeIn  " data-wow-delay="0.1s"
+                    style="max-width: 600px;" >
                     <h1 class="text-white mb-3"><span class="fw-light text-dark">Cultivos para la vida</h1>
                 </div>
                 <div class="row gx-4 gx-lg-5">
-                    <div class="offset-2 col-lg-8 text-center">
+                    <div class="offset-2 col-lg-8 text-center table-responsive"  style="max-height: 30rem">
                         @foreach ($crops as $crop)
                             <a href="{{ route('informationCrop', $crop) }}">
                                 <div class="card mb-3" style="max-width: 900px;">

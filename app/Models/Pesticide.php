@@ -11,7 +11,18 @@ class Pesticide extends Model
     use HasFactory;
 
     // Relación varios a varios (Pesticides => Disease)
-    public function disease():BelongsToMany{
-        return $this->belongsToMany (Disease::class);
+    public function diseases(): BelongsToMany
+    {
+        return $this->belongsToMany(Disease::class);
     }
+    protected $fillable = [
+        'name',
+        'description',
+        'activeIngredient',
+        'price',
+        'type',
+        'dose',
+        'image',
+
+    ];
 }

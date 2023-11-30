@@ -11,8 +11,8 @@ use App\Models\Fertilizer;
 use App\Models\CropDisease;
 
 use App\Models\CropFertilizer;
+use App\Models\DiseasePesticide;
 use Illuminate\Database\Seeder;
-use App\Models\PesticideDisease;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         Fertilizer::factory(50)->create();
         CropFertilizer::factory(100)->create();
         CropDisease::factory(100)->create();
-        PesticideDisease::factory(100)->create();
+        #DiseasePesticide::factory(100)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

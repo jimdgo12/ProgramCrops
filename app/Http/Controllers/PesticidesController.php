@@ -6,88 +6,102 @@ use App\Models\Disease;
 use App\Models\Pesticide;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use PHPUnit\TextUI\Configuration\Php;
 
 class PesticidesController extends Controller
 {
     public function index()
     {
-        $disease_id = Pesticide::first()->id;
-        $diseases = Pesticide::get();
-
+        $diseases = Disease::get();
+        $disease_id = Disease::first()->id;
         $pesticides = Pesticide::get();
-        return view('admin.pesticide.AdminPesticideView', ['diseases'=> $diseases, 'pesticides' => $pesticides]);
+        //dd($diseases, $pesticides, $disease_id);
+        return view('admin.pesticide.AdminPesticideView', ['diseases' => $diseases, 'pesticides' => $pesticides, 'disease_id' => $disease_id]);
     }
 
     public function getDiseasePesticidaById($id)
     {
         $diseases = Disease::get();
         $disease = Disease::find($id);
-        // dd($crop);
-        // $diseases = Disease::where('crop_id', '=', $crop->id)->get();
         $pesticides = $disease->pesticides;
-        // dd($crop, $diseases);
+
         return view('admin.pesticide.AdminPesticideView', ['diseases' => $diseases, 'pesticides' => $pesticides, 'disease_id' => $disease->id]);
     }
 
     public function create()
     {
         $diseases = Disease::get();
-        return view('admin.pesticide.AdminPesticideView', ['diseases' => $diseases, 'pesticide' => null]);
+
+        return view('admin.pesticide.CreatePesticide', ['diseases' => $diseases, 'pesticide' => null]);
+        dd($diseases);
     }
 
 
-    public function createPesticide($id)
-    {
-        $disease_id = Disease::first()->id;
-        $diseases = Disease::get();
-        $pesticides = $diseases->pesticides;
-        //dd($diseases, $disease_id);
-        return view('admin.disease.CreateDisease', ['diseases' => $diseases, 'pesticides' => $pesticides, $diseases->$id, 'disease_id' => $disease_id]);
-    }
+    // public function createPesticide($id)
+    // {
+    //     $disease = Disease::get();
+    //     $diseases = Disease::find($id);
+    //     $pesticide = $disease->pesticide;
+    //     //dd($pesticides, $diseases);
+
+    //     return view('admin.pesticide.CreatePesticide', ['diseases' => $diseases, 'pesticide' => null]);
+    // }
+
+    /**
+     * Store a newly created resource in storage.
+     */
 
     public function store(Request $request)
     {
 
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,50',
-            'description' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
-            'activeIngredient' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
-            'Price' => 'required|integer|between:10000,100000',
-            'type' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,300',
-            'dose' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,100',
-            'image' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,800',
+            'disease_ids' => 'required_without_all',
+            'name' => 'required',
+            'description' => 'required',
+            'activeIngredient' => 'required',
+            'Price' => 'required',
+            'type' => 'required',
+            'dose' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048'
 
         ]);
 
         try {
 
-        //Obtener el nombre de la imagen usando la función time()
-        //Para generar un nombre aleatorio
-        $imageNamePesticide = time() . '.' . $request->image->extension();
-        //Copiar la imagen al directorio public
-        $request->image->move(public_path('storage/pest$pesticides/'), $imageNamePesticide);
+            //Obtener el nombre de la imagen usando la función time()
+            //Para generar un nombre aleatorio
+            $imageNamePesticide = time() . '.' . $request->image->extension();
+            //Copiar la imagen al directorio public
+            $request->image->move(public_path('storage/pesticide/'), $imageNamePesticide);
 
-        Pesticide::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'activeIngredient' => $request->activeIngredient,
-            'price' => $request->price,
-            'type' => $request->type,
-            'dose' => $request->dose,
-            'image' => $request->imageNamePesticide
-        ]);
+            $pesticide = new Pesticide([
+                'name' => $request->name,
+                'description' => $request->description,
+                'activeIngredient' => $request->activeIngredient,
+                'price' => $request->price,
+                'type' => $request->type,
+                'dose' => $request->dose,
+                'image' => $request->imageNamePesticide
+            ]);
 
-        return redirect()->route('pesticides.index');
+            foreach ($request->disease_ids as $disease_id) {
 
-        $message = 'Se creo un fungicida';
+                $disease = Disease::find($disease_id);
+                $disease->pesticides()->save($pesticide);
+            }
 
-            return redirect()->route('pesticides.index')->with('success', $message);
+
+
+
+
+
+            $message = 'Se creo un Plaguicida';
+
+            return redirect()->route('pesticides.index')->with('danger', $message);
         } catch (QueryException $e) {
             $message = 'ups.. el fungicida no fue creado';
             return redirect()->route('pesticides.index')->with('error', $message);
         }
-
-
     }
 
 
@@ -106,9 +120,11 @@ class PesticidesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pesticide $pesticides)
+    public function edit(Pesticide $pesticide)
     {
-        //
+        $diseases = Disease::get();
+
+        return view('admin.pesticide.EditPesticide', ['diseases' => $diseases, 'pesticide' => $pesticide]);
     }
 
     /**
@@ -122,9 +138,23 @@ class PesticidesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pesticide $pesticides)
+    public function destroy(Pesticide $pesticides, $id)
     {
-        //
+        try {
+            //     $pesticides->delete();
+            //
+            //     return redirect()->route('pesticides.index')->with('success', $message);
+            //
+
+            $pesticides = Pesticide::find($id);
+            $pesticides->delete();
+            return redirect()->route('pesticides.index')
+                // $message = 'El plaguicida fue eliminado'
+                ->with('success', 'Post deleted successfully');
+        } catch (QueryException $e) {
+            $message = 'el plaguicida no puede ser eliminado';
+            return redirect()->route('pesticides.index')->with('error', $message);
+        }
     }
 
     //___________________________________________________________________________________________________________

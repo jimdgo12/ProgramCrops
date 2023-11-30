@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pesticide_diseases', function (Blueprint $table) {
+        Schema::create('disease_pesticide', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pesticide_id')->constrained('pesticides');
             $table->foreignId('disease_id')->constrained('diseases');
+            $table->foreignId('pesticide_id')->constrained('pesticides');
+
+
             $table->timestamps();
         });
     }
@@ -23,13 +25,13 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
-        Schema::table('pesticide_diseases', function (Blueprint $table) {
-            // Borra la relación
-            $table->dropConstrainedForeignId('pesticide_id');
-            $table->dropConstrainedForeignId('disease_id');
 
+    {
+        Schema::table('disease_pesticide', function (Blueprint $table) {
+            // Borra la relación
+            $table->dropConstrainedForeignId('disease_id');
+            $table->dropConstrainedForeignId('pesticide_id');
         });
-        Schema::dropIfExists('pesticide_diseases');
+        Schema::dropIfExists('disease_pesticide');
     }
 };

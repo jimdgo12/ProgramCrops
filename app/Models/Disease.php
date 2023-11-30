@@ -19,7 +19,8 @@ class Disease extends Model
     // Relación varios a varios ( Disease => Pesticides)
     public function pesticides(): BelongsToMany
     {
-        return $this->belongsToMany(Pesticide::class, 'pesticide_diseases', 'disease_id', 'pesticide_id');
+        // return $this->belongsToMany(Pesticide::class, 'pesticide_diseases', 'disease_id', 'pesticide_id');
+        return $this->belongsToMany(Pesticide::class);
     }
 
     // Arreglo que indica que campos se pueden insertar en la tabla

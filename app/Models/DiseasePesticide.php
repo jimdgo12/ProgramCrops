@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PesticideDisease extends Model
+class DiseasePesticide extends Model
 {
     use HasFactory;
 }

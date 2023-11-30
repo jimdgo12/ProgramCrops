@@ -10,12 +10,12 @@
             <div class="card">
                 <div class="card-body">
                     <!-- enctype="multipart/form-data"
-                                adjuntar archivos a la petición del formulario
-                                adjuntar un archivo de imagen (.jpg, .png)
-                            -->
+                                    adjuntar archivos a la petición del formulario
+                                    adjuntar un archivo de imagen (.jpg, .png)
+                                -->
                     <form action="{{ route('fertilizers.update', $fertilizer) }}" method="POST" enctype="multipart/form-data">
                         @method('put')
-                        @include('admin.crop.FormCrop')
+                        @include('admin.fertilizer.FormFertilizer')
                         <br>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-warning" type="submit"> Actualizar </button>
@@ -47,4 +47,3 @@
         });
     </script>
 @endsection
-

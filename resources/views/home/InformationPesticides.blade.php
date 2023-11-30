@@ -11,11 +11,11 @@
 @endsection
 
 @section('title')
-    {{ $disease->name }}
+    {{ $crop->name }}
 @endsection
 
 @section('image')
-    <img class="img-fluid animated pulse infinite" src="{{ $disease->image }}" alt="">
+    <img class="img-fluid animated pulse infinite" src="{{ $disease_selected->image }}" alt="">
 @endsection
 
 
@@ -25,13 +25,16 @@
         <div class="container-fluid how-to-use bg-primary my-5 py-5">
             <div class="container text-white py-5">
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Plaguicidas</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $disease->name }}</p>
+                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Enfermedades</h1>
+                    <p class="text-white mb-4 animated slideInRight">{{ $disease_selected->nameCommon }}</p>
                 </div>
-                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
+                <div class="mx-auto text-center wow fadeIn  table-responsive" data-wow-delay="0.1s"
+                    style="max-height: 30rem">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body table-responsive" data-wow-delay="0.1s" style="max-height: 30rem">
                             <table id="example1" class="table table-striped table-bordered table-hover">
+
+
                                 <thead>
                                     <tr>
                                         <th>Imagen</th>
@@ -76,11 +79,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+                <div class="mx-auto text-center wow fadeIn  " data-wow-delay="0.1s" style="max-width: 600px;">
+                    <br>
+                    <br>
                     <h1 class="text-white mb-3"><span class="fw-light text-dark">Plaguicidas</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $disease->nameCommon }}</p>
+                    <p class="text-white mb-4 animated slideInRight">{{ $disease_selected->nameCommon }}</p>
                 </div>
-                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
+                <div class="mx-auto text-center wow fadeIn table-responsive" data-wow-delay="0.1s"
+                    style="max-height: 30rem">
                     <div class="card">
                         <div class="card-body">
                             <table id="example1" class="table table-striped table-bordered table-hover">

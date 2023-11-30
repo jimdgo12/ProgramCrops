@@ -17,8 +17,6 @@ class IndexController extends Controller
         return view('home.Index', ['crops' => $crops]);
     }
 
-
-
     public function getCropInformation(Crop $crop)
     {
         //dd($crop);
@@ -34,6 +32,7 @@ class IndexController extends Controller
 
     public function getDiseasesInformation(Crop $crop)
     {
+        // dd($crop->diseases());
         $diseases = $crop->diseases;
         //dd($crop, $diseases);
         return view('home.InformationDiseases', ['crop' => $crop, 'diseases' => $diseases]);
@@ -43,12 +42,14 @@ class IndexController extends Controller
     public function getPesticidesInformation(Crop $crop, Disease $disease)
     {
 
+        //dd($disease->pesticides());
         $diseases = $crop->diseases;
         $pesticides = $disease->pesticides;
-        // dd($crop, $disease, $pesticides);
+        //dd($crop, $disease, $pesticides);
 
-        return view('home.InformationPesticides', ['crop' => $crop, 'diseases' => $diseases, 'disease' => $disease, 'pesticides' => $pesticides]);
+        return view('home.InformationPesticides', ['crop' => $crop, 'diseases' => $diseases, 'disease_selected' => $disease, 'pesticides' => $pesticides]);
     }
+
 
     public function getFertilizersInformation(Crop $crop)
     {
@@ -59,20 +60,5 @@ class IndexController extends Controller
 
 
         return view('home.InformationFertilizer', ['crop' => $crop, 'fertilizers' => $fertilizers]);
-    }
-
-
-    public function viewGetCrops(Crop $crop)
-    {
-        return view('admin.crop.AdminCropView', ['crop' => $crop]);
-    }
-
-    public function viewPesticidesInformation(Crop $crop, Disease $disease)
-    {
-        $diseases = $crop->diseases;
-        $pesticides = $disease->pesticides;
-        return view('home.ViewInformationPesticides', ['crop' => $crop, 'diseases' => $diseases, 'disease' => $disease, 'pesticides' => $pesticides]);
-        // $pesticides = $disease->pesticides;
-        // return view('home.ViewInformationPesticides', ['disease' => $disease, 'pesticides' => $pesticides]);
     }
 }

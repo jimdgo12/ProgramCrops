@@ -8,7 +8,7 @@
 @endsection
 
 @section('title')
-    Enfermedades
+    Enfermedades..
 @endsection
 
 @section('content')
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="d-flex flex-row align-items-center">
-                            <a href="{{ route('diseases.create', $crop_id) }}" class="btn btn-warning">
+                            <a href="{{ route('diseases.create', $crop_id) }}" class="btn btn-success">
                                 <i class="fas fa-plus-circle nav-icon"> </i>
                             </a>
                         </div>
@@ -76,12 +76,14 @@
                                         <td>{{ $disease->symptoms }}</td>
                                         <td>{{ $disease->type }}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-info">
+                                            <a href="{{ route('diseases.edit',$disease) }}" class="btn btn-info">
                                                 <i class="fas fa-edit nav-icon"></i>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <form action="">
+                                            <form action="{{ route('diseases.destroy',$disease) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fas fa-minus-circle nav-icon"> </i>
                                                 </button>

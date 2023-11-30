@@ -30,6 +30,11 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/sweetAlert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/css/GraficStyles.css') }}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     @yield('styles')
 </head>
 
@@ -139,6 +144,13 @@
                             <a href="{{ route('pesticides.index') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Plaguicidas</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item menu-open">
+                            {{-- <a href="{{ route('grafica') }}" class="nav-link active"> --}}
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Grafica</p>
                             </a>
                         </li>
 

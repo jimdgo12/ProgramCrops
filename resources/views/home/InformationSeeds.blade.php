@@ -28,7 +28,7 @@
                     <h1 class="text-white mb-3"><span class="fw-light text-dark">Semillas</h1>
                     <p class="text-white mb-4 animated slideInRight">{{ $crop->name }}</p>
                 </div>
-                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
+                <div class="mx-auto text-center wow fadeIn table-responsive" data-wow-delay="0.1s" style="max-height: 30rem">
                     <div class="card">
                         <div class="card-body">
                             <table id="example1" class="table table-striped table-bordered table-hover">

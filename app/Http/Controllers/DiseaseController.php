@@ -12,11 +12,10 @@ class DiseaseController extends Controller
 {
     public function index()
     {
-
-        $crop_id = Crop::first()->id;
         $crops = Crop::get();
-        //dd($crops, $crop_id);
+        $crop_id = Crop::first()->id;
         $diseases = Disease::get();
+        //dd($crops,$diseases,$crop_id);
         return view('admin.disease.AdminDiseaseView', ['crops' => $crops, 'diseases' => $diseases, 'crop_id' => $crop_id]);
     }
 
@@ -24,10 +23,9 @@ class DiseaseController extends Controller
     {
         $crops = Crop::get();
         $crop = Crop::find($id);
-        // dd($crop);
-        // $diseases = Disease::where('crop_id', '=', $crop->id)->get();
         $diseases = $crop->diseases;
-        //dd($crop, $diseases);
+        //dd($crop);
+
         return view('admin.disease.AdminDiseaseView', ['crops' => $crops, 'diseases' => $diseases, 'crop_id' => $crop->id]);
     }
 
@@ -38,23 +36,100 @@ class DiseaseController extends Controller
     }
 
 
-    public function createDisease($id)
+    // public function createDisease($id)
+    // {
+    //     $crops = Crop::get();
+    //     $crop = Crop::find($id);
+
+
+    //     $diseases = $crop->diseases;
+
+    //     return view('admin.disease.CreateDisease', ['crop' => $crop, 'diseases' => null]);
+    // }
+
+
+    public function store(Request $request, Disease $disease)
     {
 
-        $crops = Crop::get();
-        $crop = Crop::find($id);
+        $request->validate([
+            'crop_ids' => 'required_without_all',
+            'nameCommon' => 'required',
+            'nameScientific' => 'required',
+            'description' => 'required',
+            'diagnosis' => 'required',
+            'symptoms' => 'required',
+            'transmission' => 'required',
+            'type' => 'required',
+            'image' => 'required', 'image' => 'required|image|mimes:jpg,png,jpeg|max:2048'
+        ]);
 
-        // $crop_id = Crop::first()->id;
-        // $crop = Crop::get();
-        $diseases = $crop->diseases;
 
-        return view('admin.disease.CreateDisease', ['crop' => $crop, 'diseases' => null]);
+        try {
+
+            $imageNameDisease = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('storage/disease/'), $imageNameDisease);
+
+            $disease =  new Disease(
+                [
+                    'nameCommon' => $request->nameCommon,
+                    'nameScientific' => $request->nameScientific,
+                    'description' => $request->description,
+                    'diagnosis' => $request->diagnosis,
+                    'symptoms' => $request->symptoms,
+                    'transmission' => $request->transmission,
+                    'type' => $request->type,
+                    'image' => $imageNameDisease
+                ]
+            );
+
+            foreach ($request->crop_ids as $crop_id) {
+                $crop = Crop::find($crop_id);
+                $crop->diseases()->save($disease);
+            }
+
+
+
+
+
+            //return redirect()->route('diseases.index');
+
+
+            $message = 'Se creo la enfermedad';
+
+            return redirect()->route('diseases.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'ups.. la enfermedad no se pudo crear';
+            return redirect()->route('diseases.index')->with('error', $message);
+        }
     }
 
-
-    public function store(Request $request)
+    /**
+     * Display the specified resource.
+     */
+    public function show(Crop $crop)
     {
+        //
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $crops = Crop::find($id);
+        //$crop = Crop::get();
+        $disease = Disease::get();
+        //dd($crop);
+
+
+        return view('admin.disease.EditDisease', ['crops' => $crops, 'disease' => $disease, 'crop_id' => $crops->id]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Disease $disease, $id)
+    {
         $request->validate([
             'crop_ids' => 'required_without_all',
             'nameCommon' => 'required',
@@ -70,74 +145,68 @@ class DiseaseController extends Controller
         $imageNameDisease = time() . '.' . $request->image->extension();
         $request->image->move(public_path('storage/disease/'), $imageNameDisease);
 
-        $disease =  new Disease(
-            [
-                'nameCommon' => $request->nameCommon,
-                'nameScientific' => $request->nameScientific,
-                'description' => $request->description,
-                'diagnosis' => $request->diagnosis,
-                'symptoms' => $request->symptoms,
-                'transmission' => $request->transmission,
-                'type' => $request->type,
-                'image' => $imageNameDisease
-            ]
-        );
 
-        foreach ($request->crop_ids as $crop_id) {
-            $crop = Crop::find($crop_id);
-            $crop->diseases()->save($disease);
+        $disease->update([
+
+            'nameCommon' => $request->nameCommon,
+            'nameScientific' => $request->nameScientific,
+            'description' => $request->description,
+            'diagnosis' => $request->diagnosis,
+            'symptoms' => $request->symptoms,
+            'transmission' => $request->transmission,
+            'type' => $request->type,
+            'image' => $imageNameDisease,
+            'seed_id' => $request->seed_id
+        ]);
+
+
+        try {
+
+            $imageNameDisease = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('storage/disease/'), $imageNameDisease);
+
+            $disease =  new Disease(
+                [
+                    'nameCommon' => $request->nameCommon,
+                    'nameScientific' => $request->nameScientific,
+                    'description' => $request->description,
+                    'diagnosis' => $request->diagnosis,
+                    'symptoms' => $request->symptoms,
+                    'transmission' => $request->transmission,
+                    'type' => $request->type,
+                    'image' => $imageNameDisease
+                ]
+            );
+
+
+
+
+
+            //return redirect()->route('diseases.index');
+
+
+            $message = 'Se modifico la enfermedad';
+
+            return redirect()->route('diseases.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'ups.. la enfermedad no fue creada';
+            return redirect()->route('diseases.index')->with('error', $message);
         }
-
-
-
-
-        // CropDisease::create([
-        //     'crop_id' => $request->crop_id,
-        //     'disease_id' => $request->disease_id,
-
-        // ]);
-
-        return redirect()->route('diseases.index');
-
-
-        //     $message = 'Se creo la disease';
-
-        //     return redirect()->route('diseases.index')->with('success', $message);
-        // } catch (QueryException $e) {
-        //     $message = 'ups.. la enfermedad no fue creada';
-        //     return redirect()->route('diseases.index')->with('error', $message);
-        // }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Crop $crop)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Crop $crop)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Crop $crop)
-    {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Crop $crop)
+    public function destroy(Disease $disease)
+
     {
-        //
+        try {
+            $disease->delete();
+            $message = 'La enfermedad fue eliminada';
+            return redirect()->route('diseases.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'la enfermedad no puede ser eliminada';
+            return redirect()->route('diseases.index')->with('error', $message);
+        }
     }
 }

@@ -8,9 +8,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CropsController;
 use App\Http\Controllers\DiseaseController;
 
-use App\Http\Controllers\CropsDiseaseController;
-use App\Http\Controllers\informationSeedController;
-use App\Http\Controllers\informationDiseaseController;
 use App\Http\Controllers\auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticationSessionController;
 use App\Http\Controllers\FertilizersController;
@@ -36,7 +33,6 @@ Route::get('/seeds/{crop}', [IndexController::class, 'getSeedsInformation'])->na
 Route::get('/diseases/{crop}', [IndexController::class, 'getDiseasesInformation'])->name('informationDiseases');
 Route::get('/fertilizers/{crop}', [IndexController::class, 'getFertilizersInformation'])->name('informationFertilizers');
 Route::get('/pesticides/{crop}/{disease}', [IndexController::class, 'getPesticidesInformation'])->name('informationPesticides');
-Route::get('/ViewPesticides{crop}/{disease}', [IndexController::class, 'viewPesticidesInformation'])->name('viewInformationPesticides');
 
 //================== RUTAS ADMIN ==========================
 Route::get('/admin/welcome', [AdminController::class, 'welcome'])->name('WelcomeAdmin');
@@ -48,12 +44,15 @@ Route::resource('/admin/pesticides', PesticidesController::class);
 
 
 
-Route::get('/admin/diseases/crop/{id}', [DiseaseController::class,'getCropDiseaseById']);
-Route::get('/admin/diseases/create/{id}', [DiseaseController::class,'createDisease'])->name('createDisease');
-Route::get('/admin/fertilizers/crop/{id}', [FertilizersController::class,'getCropFertilizerById']);
-Route::get('/admin/fertilizers/create/{id}', [FertilizersController::class,'createFertilizer'])->name('createFertilizer');
-Route::get('/admin/pesticides/disease/{id}', [FertilizersController::class,'getCropFertilizerById']);
-Route::get('/admin/pesticides/create/{id}', [FertilizersController::class,'createFertilizer'])->name('createFertilizer');
+Route::get('/admin/diseases/crop/{id}', [DiseaseController::class, 'getCropDiseaseById']);
+Route::get('/admin/fertilizers/crop/{id}', [FertilizersController::class, 'getCropFertilizerById']);
+Route::get('/admin/pesticides/disease/{id}', [PesticidesController::class, 'getDiseasePesticidaById']);
+
+// Route::get('/admin/diseases/create/{id}', [DiseaseController::class, 'createDisease'])->name('createDisease');
+//  Route::get('/admin/fertilizers/create/{id}', [FertilizersController::class, 'createFertilizer'])->name('createFertilizer');
+// Route::get('/admin/pesticides/create/{id}', [PesticidesController::class, 'createPesticide'])->name('createPesticides');
+
+// Route::get('/statistics', [FertilizersController::class, 'graficas'])->name('grafica');
 
 
 
@@ -64,3 +63,7 @@ Route::post('/logout', [AuthenticationSessionController::class, 'destroy'])->nam
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('save');
+
+
+
+// Route::get('/fertilizers/{crop}', [IndexController::class, 'graficas'])->name('viewGrafics');

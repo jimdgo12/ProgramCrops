@@ -7,9 +7,9 @@ use App\Models\Pesticide;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PesticideDisease>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DiseasePesticide>
  */
-class PesticideDiseaseFactory extends Factory
+class DiseasePesticideFactory extends Factory
 {
     /**
      * Define the model's default state.

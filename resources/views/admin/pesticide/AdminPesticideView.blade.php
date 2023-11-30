@@ -18,8 +18,8 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex flex-row align-items-center">
-                            <label for="">Cultivos: </label>
-                            <select class="form-control form-select" name="crop_id" id="crop_id">
+                            <label for="">Enfermedades: </label>
+                            <select class="form-control form-select" name="disease_id" id="disease_id">
                                 {{-- <option value="all" selected>Papa</option> --}}
 
                                 @isset($diseases)
@@ -28,7 +28,7 @@
                                             @isset($disease_id)
                                             @selected($disease_id == $disease->id)
                                         @endisset>
-                                            {{ $disease->name }}</option>
+                                            {{ $disease->nameCommon }}</option>
                                     @endforeach
                                 @endisset
                             </select>
@@ -36,8 +36,8 @@
                         </div>
 
                         <div class="d-flex flex-row align-items-center">
-                            {{-- <a href="{{ route('createDisease', $crop_id) }}" class="btn btn-warning"> --}}
-                            <i class="fas fa-plus-circle nav-icon"> </i>
+                            <a href="{{ route('pesticides.create', $disease_id) }}" class="btn btn-success">
+                                <i class="fas fa-plus-circle nav-icon"> </i>
                             </a>
                         </div>
 
@@ -75,12 +75,14 @@
                                         <td>{{ $pesticide->dose }}</td>
                                         <td>{{ $pesticide->type }}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-info">
+                                            <a href="{{ route('pesticides.edit', $pesticide) }}" class="btn btn-info">
                                                 <i class="fas fa-edit nav-icon"></i>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <form action="">
+                                            <form action="{{ route('pesticides.destroy', $pesticide) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fas fa-minus-circle nav-icon"> </i>
                                                 </button>
@@ -145,10 +147,11 @@
                         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
                     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-                    var crop = document.getElementById('crop_id');
-                    crop.addEventListener('change', function() {
-                        var selectOption = this.options[crop.selectedIndex];
-                        window.location.href = "/admin/diseases/crop/" + selectOption.value;
+                    var disease = document.getElementById('disease_id');
+                    disease.addEventListener('change', function() {
+                        var selectOption = this.options[disease.selectedIndex];
+                        // alert('hola');
+                        window.location.href = "/admin/pesticides/disease/" + selectOption.value;
                     });
                 });
             </script>
