@@ -48,3 +48,4 @@ class AuthenticationSessionController extends Controller
         return redirect()->route('login');
     }
 }
+

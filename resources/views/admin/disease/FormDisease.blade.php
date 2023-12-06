@@ -1,5 +1,6 @@
 @csrf
-<!-- crop -->
+<!-- disease -->
+
 <!-- nameCommon -->
 <div>
     <label class="form-label" for="nameCommon">Nombre Comun:</label>
@@ -10,8 +11,8 @@
         <div class="text-small text-danger">{{ $message }}</div>
     @enderror
 </div>
-<!-- nameScientific -->
 
+<!-- nameScientific -->
 <div>
     <label class="form-label" for="nameScientific">Nombre Científico:</label>
     <input class="form-control" type="text" name="nameScientific" id="nameScientific"
@@ -23,7 +24,6 @@
 
 
 <!-- description -->
-
 <div>
     <label class="form-label" for="description">Descripción:</label>
     <textarea class="form-control" name="description" id="description" rows="3" placeholder="Ingrese la descripción">{{ old('description', $disease) }}</textarea>
@@ -34,8 +34,6 @@
 
 
 <!-- diagnosis -->
-
-
 <div>
     <label class="form-label" for="diagnosis">Diagnóstico:</label>
     <textarea class="form-control" name="diagnosis" id="diagnosis" rows="3" placeholder="Ingrese el diagnóstico">{{ old('diagnosis', $disease) }}</textarea>
@@ -46,7 +44,6 @@
 
 
 <!-- symptoms -->
-
 <div>
     <label class="form-label" for="symptoms">simtomas:</label>
     <textarea class="form-control" name="symptoms" id="symptoms" rows="3" placeholder="Ingrese los simtomas">{{ old('symptoms', $disease) }}</textarea>
@@ -57,7 +54,6 @@
 
 
 <!-- transmission -->
-
 <div>
     <label class="form-label" for="transmission">transmisión:</label>
     <textarea class="form-control" name="transmission" id="transmission" rows="3"
@@ -66,8 +62,6 @@
         <div class="text-small text-danger">{{ $message }}</div>
     @enderror
 </div>
-
-
 
 
 <!-- type -->
@@ -103,8 +97,9 @@
 <br>
 <div class="d-flex justify-content-center">
     <img name="image" id="preview-image-before-upload"
-        src="@isset($disease)
-        {{ asset('storage/disease/' . $disease->name) }}
+        src="
+    @isset($disease->image)
+        {{ asset('storage/disease/' . $disease->image) }}
     @else
         {{ asset('img/upload-image.png') }}
     @endisset"
@@ -113,8 +108,11 @@
 
 
 @isset($disease)
+    @php
+        $crop_ids = $disease->crops->pluck('id')->all();
+        //  print_r($crop_ids);
+    @endphp
 
-    {{ $crop_ids = $disease->crops->pluck('id') }}
 @endisset
 
 
@@ -123,14 +121,16 @@
     @isset($crops)
         @foreach ($crops as $crop)
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{ $crop->id }}" id="crop_id" name="crop_ids[]"
+                <input class="form-check-input" type="checkbox" value="{{ $crop->id }}" id="crop_id"
+                    name="crop_ids[]"
                     @isset($disease)
                         @checked(in_array($crop->id, $crop_ids))
                     @else
                         @if (is_array(old('crop_ids')))
                             @checked(in_array($crop->id, old('crop_ids')))
                         @endif
-                @endisset>
+                    @endisset
+                    >
 
                 <label class="form-check-label" for="crop_id">{{ $crop->name }} </label>
             </div>

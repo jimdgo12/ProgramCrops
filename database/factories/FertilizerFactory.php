@@ -1,10 +1,10 @@
 <?php
 
 namespace Database\Factories;
-use Faker\Factory as ImageFactory;
+
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Smknstd\FakerPicsumImages\FakerPicsumImagesProvider;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Fertilizer>
@@ -19,15 +19,15 @@ class FertilizerFactory extends Factory
     public function definition(): array
     {
 
-        $faker = ImageFactory::create();
-        $faker->addProvider(new FakerPicsumImagesProvider($faker));
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \Smknstd\FakerPicsumImages\FakerPicsumImagesProvider($faker));
 
         return [
             'name'=> $this->faker->text(50),
             'description'=> $this->faker->text(300),
             'dose'=> $this->faker->text(150),
             'price' => $this->faker->numberBetween(0, 100),
-            'type'=> $this->faker->randomElement(['Tipo 1', 'Tipo 2', 'Tipo 3', 'Tipo 4']),
+            'type'=> $this->faker->randomElement(['Crecimiento', 'Desarrollo', 'Foliar']),
             'image'=> $faker->imageUrl(800, 600)
         ];
     }

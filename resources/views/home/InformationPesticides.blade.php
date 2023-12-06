@@ -15,7 +15,7 @@
 @endsection
 
 @section('image')
-    <img class="img-fluid animated pulse infinite" src="{{ $disease_selected->image }}" alt="">
+    <img class="img-fluid animated pulse infinite" src="{{ $crop->image }}" alt="">
 @endsection
 
 
@@ -25,58 +25,48 @@
         <div class="container-fluid how-to-use bg-primary my-5 py-5">
             <div class="container text-white py-5">
                 <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Enfermedades</h1>
-                    <p class="text-white mb-4 animated slideInRight">{{ $disease_selected->nameCommon }}</p>
-                </div>
-                <div class="mx-auto text-center wow fadeIn  table-responsive" data-wow-delay="0.1s"
-                    style="max-height: 30rem">
+                    <h1 class="text-white mb-3"><span class="fw-light text-dark">Enfermedad</h1>
+                    <p class="text-white mb-4 animated slideInRight">{{ $disease_selected->nameCommon }}</p>                </div>
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
                     <div class="card">
-                        <div class="card-body table-responsive" data-wow-delay="0.1s" style="max-height: 30rem">
-                            <table id="example1" class="table table-striped table-bordered table-hover">
+                        @isset($disease_selected)
+                            <div class="card-body" data-wow-delay="0.1s" >
+                                <table id="example1" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Descripición</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center"><img src="{{ asset($disease_selected->image) }}"
+                                                    alt="{{ $disease_selected->name }}" width="300" height="300">
+
+                                            </td>
+                                            <td>
+                                                <strong>Nombre: </strong><br>
+                                                {{ $disease_selected->nameCommon }}<br>
+                                                <strong>Nombre científico: </strong><br>
+                                                {{ $disease_selected->nameScientific }}<br>
+                                                <strong>Descripción: </strong><br>
+                                                {{ $disease_selected->description }}<br>
+                                                <strong>Diágnostico: </strong><br>
+                                                {{ $disease_selected->diagnosis }}<br>
+                                                <strong>Sintomas: </strong><br>
+                                                {{ $disease_selected->symptoms }}<br>
+                                                <strong>Transmisión: </strong><br>
+                                                {{ $disease_selected->transmission }}<br>
+                                                <strong>Tipo: </strong><br>
+                                                {{ $disease_selected->type }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endisset
 
 
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Descripición</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @isset($diseases)
-                                        @foreach ($diseases as $disease)
-                                            <tr>
-                                                <td class="text-center"><img src="{{ asset($disease->image) }}"
-                                                        alt="{{ $disease->name }}" width="300" height="300">
-                                                    <br>
-                                                    <br>
-                                                    <a href="{{ route('informationPesticides', ['crop' => $crop, 'disease' => $disease]) }}"
-                                                        class="btn btn-success">
-                                                        Consulta los plagicidas
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <strong>Nombre: </strong><br>
-                                                    {{ $disease->nameCommon }}<br>
-                                                    <strong>Nombre científico: </strong><br>
-                                                    {{ $disease->nameScientific }}<br>
-                                                    <strong>Descripción: </strong><br>
-                                                    {{ $disease->description }}<br>
-                                                    <strong>Diágnostico: </strong><br>
-                                                    {{ $disease->diagnosis }}<br>
-                                                    <strong>Sintomas: </strong><br>
-                                                    {{ $disease->symptoms }}<br>
-                                                    <strong>Transmisión: </strong><br>
-                                                    {{ $disease->transmission }}<br>
-                                                    <strong>Tipo: </strong><br>
-                                                    {{ $disease->type }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endisset
-
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
                 <div class="mx-auto text-center wow fadeIn  " data-wow-delay="0.1s" style="max-width: 600px;">

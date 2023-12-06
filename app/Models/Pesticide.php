@@ -13,7 +13,7 @@ class Pesticide extends Model
     // Relación varios a varios (Pesticides => Disease)
     public function diseases(): BelongsToMany
     {
-        return $this->belongsToMany(Disease::class);
+        return $this->belongsToMany(Disease::class, 'disease_pesticides', 'pesticide_id', 'disease_id');
     }
     protected $fillable = [
         'name',

@@ -4,15 +4,15 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\home\IndexController;
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CropsController;
-use App\Http\Controllers\DiseaseController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\CropsController;
+use App\Http\Controllers\admin\DiseaseController;
 
 use App\Http\Controllers\auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticationSessionController;
-use App\Http\Controllers\FertilizersController;
-use App\Http\Controllers\PesticidesController;
-use App\Http\Controllers\SeedController;
+use App\Http\Controllers\admin\FertilizersController;
+use App\Http\Controllers\admin\PesticidesController;
+use App\Http\Controllers\admin\SeedController;
 
 /*
 |--------------------------------------------------------------------------

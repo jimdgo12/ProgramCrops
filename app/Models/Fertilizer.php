@@ -11,10 +11,9 @@ class Fertilizer extends Model
     use HasFactory;
 
     // Relación varios a varios (Fertilizer => Crop)
-    public function crops():BelongsToMany{
-        // return $this->belongsToMany (Crop::class, 'crop_fertilizers', 'crop_id', 'fertilizer_id');
-        return $this->belongsToMany(Crop::class);
-
+    public function crops(): BelongsToMany
+    {
+        return $this->belongsToMany(Crop::class, 'crop_fertilizers', 'fertilizer_id', 'crop_id');
     }
 
 
@@ -29,7 +28,4 @@ class Fertilizer extends Model
         'image'
 
     ];
-
-
-
 }

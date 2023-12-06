@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 table-responsive" data-wow-delay="0.1s" style="max-height: 20rem">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-end">

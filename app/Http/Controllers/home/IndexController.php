@@ -42,12 +42,12 @@ class IndexController extends Controller
     public function getPesticidesInformation(Crop $crop, Disease $disease)
     {
 
-        //dd($disease->pesticides());
-        $diseases = $crop->diseases;
+
+
         $pesticides = $disease->pesticides;
         //dd($crop, $disease, $pesticides);
 
-        return view('home.InformationPesticides', ['crop' => $crop, 'diseases' => $diseases, 'disease_selected' => $disease, 'pesticides' => $pesticides]);
+        return view('home.InformationPesticides', ['crop' => $crop, 'disease_selected' => $disease, 'pesticides' => $pesticides]);
     }
 
 

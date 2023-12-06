@@ -13,14 +13,13 @@ class Disease extends Model
     // Relación varios a varios (Disease => Crops)
     public function crops(): BelongsToMany
     {
-        return $this->belongsToMany(Crop::class);
+        return $this->belongsToMany(Crop::class, 'crop_diseases',' disease_id', 'crop_id');
     }
 
     // Relación varios a varios ( Disease => Pesticides)
     public function pesticides(): BelongsToMany
     {
-        // return $this->belongsToMany(Pesticide::class, 'pesticide_diseases', 'disease_id', 'pesticide_id');
-        return $this->belongsToMany(Pesticide::class);
+        return $this->belongsToMany(Pesticide::class,'disease_pesticides', 'disease_id', 'pesticide_id');
     }
 
     // Arreglo que indica que campos se pueden insertar en la tabla

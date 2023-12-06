@@ -29,7 +29,7 @@
 <div>
     <label class="form-label" for="name">Nombre:</label>
 
-    <input class="form-control" type="text" name="name" id="name" placeholder="Ingrese el nombre cultivo"
+    <input class="form-control" type="text" name="name" id="name" placeholder="Ingrese el nombre de la semilla"
         value="{{ old('name', $seed) }}">
     @error('name')
         <div class="text-small text-danger">{{ $message }}</div>
@@ -43,7 +43,7 @@
     <label class="form-label" for="name">Nombre Científico:</label>
 
     <input class="form-control" type="text" name="nameScientific" id="nameScientific"
-        placeholder="Ingrese el nombre cientifico del cultivo" value="{{ old('nameScientific', $seed) }}">
+        placeholder="Ingrese el nombre cientifico de la semilla" value="{{ old('nameScientific', $seed) }}">
     @error('nameScientific')
         <div class="text-small text-danger">{{ $message }}</div>
     @enderror
@@ -132,3 +132,4 @@
     @endisset"
         alt="Previsualizar imagen" class="image-preview">
 </div>
+

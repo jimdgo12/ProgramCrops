@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         Fertilizer::factory(50)->create();
         CropFertilizer::factory(100)->create();
         CropDisease::factory(100)->create();
-        #DiseasePesticide::factory(100)->create();
+        DiseasePesticide::factory(100)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

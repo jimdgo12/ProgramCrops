@@ -36,8 +36,11 @@
     <script type="text/javascript">
         $(function() {
             bsCustomFileInput.init();
-        });
-        $(document).ready(function(e) {
+
+            // Previsualización de la imagen al cargar la página (si ya hay una imagen)
+            let currentImage = '{{ isset($fpesticide->image) ? asset("storage/pesticide/$pesticide->image") : asset("img/upload-image.png") }}';
+            $('#preview-image-before-upload').attr('src', currentImage);
+
             $('#customFile').change(function() {
                 let reader = new FileReader();
                 reader.onload = (e) => {
@@ -48,3 +51,4 @@
         });
     </script>
 @endsection
+

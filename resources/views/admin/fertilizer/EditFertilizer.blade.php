@@ -10,9 +10,9 @@
             <div class="card">
                 <div class="card-body">
                     <!-- enctype="multipart/form-data"
-                                    adjuntar archivos a la petición del formulario
-                                    adjuntar un archivo de imagen (.jpg, .png)
-                                -->
+                                adjuntar archivos a la petición del formulario
+                                adjuntar un archivo de imagen (.jpg, .png)
+                            -->
                     <form action="{{ route('fertilizers.update', $fertilizer) }}" method="POST" enctype="multipart/form-data">
                         @method('put')
                         @include('admin.fertilizer.FormFertilizer')
@@ -35,8 +35,11 @@
     <script type="text/javascript">
         $(function() {
             bsCustomFileInput.init();
-        });
-        $(document).ready(function(e) {
+
+            // Previsualización de la imagen al cargar la página (si ya hay una imagen)
+            let currentImage = '{{ isset($fertilizer->image) ? asset("storage/fertilizer/$fertilizer->image") : asset("img/upload-image.png") }}';
+            $('#preview-image-before-upload').attr('src', currentImage);
+
             $('#customFile').change(function() {
                 let reader = new FileReader();
                 reader.onload = (e) => {
@@ -47,3 +50,5 @@
         });
     </script>
 @endsection
+
+

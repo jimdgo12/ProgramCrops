@@ -13,7 +13,7 @@
                                 adjuntar archivos a la petición del formulario
                                 adjuntar un archivo de imagen (.jpg, .png)
                             -->
-                    <form action="{{ route('diseases.update', $crop_id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('diseases.update', $disease) }}" method="POST" enctype="multipart/form-data">
                         @method('put')
                         @include('admin.disease.FormDisease')
                         <br>
@@ -28,15 +28,17 @@
     </div>
 @endsection
 
-
 @section('scripts')
     <!-- bs-custom-file-input -->
     <script src="{{ asset('admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <script type="text/javascript">
         $(function() {
             bsCustomFileInput.init();
-        });
-        $(document).ready(function(e) {
+
+            // Previsualización de la imagen al cargar la página (si ya hay una imagen)
+            let currentImage = '{{ isset($disease->image) ? asset("storage/disease/$disease->image") : asset("img/upload-image.png") }}';
+            $('#preview-image-before-upload').attr('src', currentImage);
+
             $('#customFile').change(function() {
                 let reader = new FileReader();
                 reader.onload = (e) => {
@@ -47,3 +49,5 @@
         });
     </script>
 @endsection
+
+

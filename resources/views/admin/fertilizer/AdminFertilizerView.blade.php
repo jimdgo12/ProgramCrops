@@ -25,7 +25,6 @@
                                 @isset($crops)
                                     @foreach ($crops as $crop)
                                         <option value="{{ $crop->id }}"
-
                                             @isset($crop_id)
                                             @selected($crop_id == $crop->id)
                                         @endisset>
@@ -76,12 +75,12 @@
                                         <td>{{ $fertilizer->price }}</td>
                                         <td>{{ $fertilizer->type }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('fertilizers.edit',$fertilizer) }}" class="btn btn-info">
+                                            <a href="{{ route('fertilizers.edit', $fertilizer) }}" class="btn btn-info">
                                                 <i class="fas fa-edit nav-icon"></i>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <form action="{{ route('fertilizers.destroy',$fertilizer) }}" method="POST">
+                                            <form action="{{ route('fertilizers.destroy', $fertilizer) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">
